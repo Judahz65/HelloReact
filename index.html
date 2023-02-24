@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello React</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <h1>Women in tech</h1>
+    <div id="app"></div>
+    
+    <script type="text/babel">
+        const $app=document.getElementById("app");
+        const useState = React.useState
+
+        const Avatar = ({id, name, size})=>{
+            const [enabled, setEnabled] =useState(false);
+
+            const src= `https://randomuser.me/api/portraits/women/${id}.jpg`;
+
+            let pictureClassName="";
+            if (size==="small") {
+                pictureClassName="is-small";
+            } else if (size==="large") {
+                pictureClassName="is-large";
+            }
+
+            const imgClassName = enabled ? "" : 'disabled';
+            
+            return (
+                <picture>
+                    <img 
+                        onClick={()=> setEnabled(!enabled)} 
+                        className={imgClassName} 
+                        src={src}
+                    />
+                    <span>{name}</span>
+                </picture>);
+        };
+
+        function Contador(){
+            let contadorState = useState(7);
+            let contadorValue = contadorState[0];
+            let contadorActualizador = contadorState [1];
+
+            return (
+                <div>
+                    <Avatar id={17} name="Katie" size="small"/>
+
+                    <div class="contar">
+                        <button onClick={()=> {contadorActualizador(contadorValue+1)}}>Like</button>
+                        <span>{contadorValue}</span>
+                        <button onClick={()=> {contadorActualizador(contadorValue-1)}}>No me gusta</button>
+                    </div>
+ 
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <div>
+                <Contador />
+            </div>,
+
+            $app
+        )
+    </script>
+    
+
+
+
+
+</body>
+</html>
